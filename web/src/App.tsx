@@ -6,7 +6,7 @@ import { NewUser } from "./pages/NewUser"
 function App() {
 
   return (
-    <Events />
+    <CreateEvent />
   )
 }
 

@@ -26,7 +26,14 @@ const db = [
     end: "23:38",
     description: "achar os pássaros",
     id:2,
-  }
+  }, {
+    name: "Teste 1",
+    date:  new Date("2022-06-17"),
+    start: "15:36",
+    end: "16:36",
+    description: "Bla blabla. Comer, treinar, estudar, dormir, comer, estudar, comer, treinar... ",
+    id: 1,
+  },
 ];
 
 export function Events(){
@@ -34,7 +41,7 @@ export function Events(){
     <div>
       <Header />
       <section className="mt-12 w-full">    
-          <ul className="flex flex-wrap justify-center lg:justify-around">
+          <ul className="flex flex-wrap justify-center gap-7 lg:justify-around lg:max-w-7xl mx-auto">
             {
               db.map(element => {
                 return(
