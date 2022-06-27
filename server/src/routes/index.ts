@@ -1,5 +1,6 @@
 import express from 'express';
-import events from './eventsRoutes';
+import authenticateRouter from './authenticateRoutes';
+import eventRouter from './eventsRoutes';
 
 
 
@@ -10,7 +11,8 @@ const routes = (app:express.Application) => {
 
   app.use(
     express.json(),
-    events
+    authenticateRouter,
+    eventRouter
   )
 }
 

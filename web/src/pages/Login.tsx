@@ -1,14 +1,43 @@
+import { FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
+import {userInfo} from '../auth/user'
+import axios from 'axios'
+import DataUser from "../auth/dataUser";
 
 
 export function Login(){
+  const navigate = useNavigate();
+  const [email, setEmail] = useState(' ');
+  const [password,setPassword ] = useState(' ');
+  const [err, setErr] = useState(' ')
+
+  async function  Login(event: FormEvent){
+  event.preventDefault();
+
+
+   await axios.post('http://localhost:3333/authenticate', {
+       email: email,
+       password: password
+    })
+    .then((response) => {
+      const data = response
+      let user = userInfo(data)
+      DataUser.setStorage(user);
+      navigate('/home')
+
+    })
+    .catch( (error) => {
+      const res = error.response.data.error;
+      console.log(error);
+      setErr(res)
+    });
+  }
+
   
   return (
-    <div className="w-full h-screen flex items-center">
-        <section 
-        className="flex flex-col justify-center p-6 gap-2 w-full mx-8 lg:w-1/3 bg-white rounded-md shadow-md" 
-        >
-          <div className="flex justify-center">
+    <div className="w-full h-screen flex flex-col items-center px-3 transition-transform">
+       <div className="flex justify-center w-20 mt-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0"
@@ -17,7 +46,7 @@ export function Login(){
               version="1.1"
               viewBox="0 0 512 512"
               xmlSpace="preserve"
-              className="w-20 m-20 shadow-lg rounded-md"
+              className=" shadow-lg rounded-md"
             >
               <path
                 fill="#D8DCE1"
@@ -54,24 +83,35 @@ export function Login(){
               </g>
             </svg>
           </div>
-          <form className="flex flex-col">
+          <h1 className="m-8 font-extrabold text-lg"> Calendário de Eventos </h1>
+        <section 
+        className="flex flex-col justify-center p-6 gap-2 w-full mx-8 max-w-[440px] bg-white rounded-md shadow-md" 
+        >
+          <form  
+            className="flex flex-col"
+            onSubmit={Login}
+          >
 
             <label htmlFor="email" className="text-sm font-bold text-gray-700 mb-2">
               E-mail
             </label>
             <input type="email" placeholder="Digite seu e-mail" name="email" id="email"
+              onChange={event=>{setEmail(event.target.value)}}
               className="text-sm w-full mb-4 pl-3 py-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black"
             />
 
             <label htmlFor="password" className="text-sm font-bold text-gray-700 mb-2">Senha</label>
             <input type="password" placeholder="Digite sua senha" name="password" id="password" 
+              onChange={event=>{setPassword(event.target.value)}}
               className="text-sm w-full mb-4 pl-3 py-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black"
             />
+            <p className="text-red-600 text-center text-lg">{err}</p>
             
-            <Button
-            >Login</Button>
+            <Button >
+              Login
+            </Button>
           </form>
-          <a href="#" className="text-sky-800 text-center">Criar Login</a>
+          <Link to={'/newUser'} className="text-sky-800 text-center">Criar Login</Link>
         </section>
     </div>
   )

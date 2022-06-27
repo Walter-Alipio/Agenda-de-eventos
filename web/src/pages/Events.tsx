@@ -1,40 +1,34 @@
 import { EventCard } from "../components/EventCard";
 import { Header } from "../components/Header";
+import axios from 'axios'
+import { useEffect } from "react";
+import DataUser from "../auth/dataUser";
 
+interface dataType{
+  id: string,
+  date: string,
+  description: string,
+  end: string,
+  name: string,
+  start: string,
+}
 
-const db = [
-  {
-    name: "Teste 1",
-    date:  new Date("2022-06-17"),
-    start: "15:36",
-    end: "16:36",
-    description: "Bla blabla. Comer, treinar, estudar, dormir, comer, estudar, comer, treinar... ",
-    id: 1,
-  },
-  {
-    name: "Resolver Algortimo",
-    date: new Date("2022-06-17"),
-    start: "16:37",
-    end: "23:38",
-    description: "achar os pássaros",
-    id:2,
-  },
-    {
-    name: "Resolver Algortimo",
-    date: new Date("2022-06-17"),
-    start: "16:37",
-    end: "23:38",
-    description: "achar os pássaros",
-    id:2,
-  }, {
-    name: "Teste 1",
-    date:  new Date("2022-06-17"),
-    start: "15:36",
-    end: "16:36",
-    description: "Bla blabla. Comer, treinar, estudar, dormir, comer, estudar, comer, treinar... ",
-    id: 1,
-  },
-];
+let db: dataType[];
+const res = async ()=>{
+
+ await axios.get('http://localhost:3333/events', {
+    headers: {
+      Authorization: "Bearer " + DataUser.getToken()
+    }
+  })
+  .then((response)=>{
+    db = [...response.data]
+  })
+  .catch((error)=>{
+    console.log(error)
+  })
+}
+res()
 
 export function Events(){
   return (
@@ -49,7 +43,7 @@ export function Events(){
                     <EventCard 
                       key={element.id}
                       name={element.name}
-                      date={element.date}
+                      date={new Date(element.date)}
                       start={element.start}
                       end={element.end}
                       description={element.description}
