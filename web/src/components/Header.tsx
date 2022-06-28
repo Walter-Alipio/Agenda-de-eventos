@@ -1,7 +1,8 @@
 export function Header(){
   return(
-    <header className="w-full h-16 bg-sky-800 flex items-center drop-shadow-xl">
+    <header className="w-full h-16 bg-sky-800 flex items-center drop-shadow-xl justify-between px-3">
        <div className="w-10 flex items-center justify-center ml-7 ">
+        <a href="/home">     
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0"
@@ -46,7 +47,9 @@ export function Header(){
                 <circle cx="336" cy="318" r="32" fill="#FF4F19"></circle>
               </g>
             </svg>
-          </div>
+        </a>
+       </div>
+       <a href="/"><span className="font-extrabold text-sky-100 text-base mr-2">Logout</span></a>
     </header>
   )
 }
