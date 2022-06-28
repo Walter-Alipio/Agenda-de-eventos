@@ -1,12 +1,12 @@
-import { CreateEvent } from "./pages/CreateEvent"
-import { Events } from "./pages/Events"
-import { Login } from "./pages/Login"
-import { NewUser } from "./pages/NewUser"
+import {BrowserRouter} from 'react-router-dom'
+import { Router } from "./routes"
 
 function App() {
 
   return (
-    <CreateEvent />
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   )
 }
 
