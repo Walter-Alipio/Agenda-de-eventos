@@ -1,17 +1,37 @@
 import { Button } from "../components/Button";
-import { Header } from "../components/Header";
 import { FormEvent, useState } from "react";
 import { BackButton } from "../components/BackButton";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 
 export function NewUser(){
 
-    function handleEvent(event: FormEvent){
+  const navigate = useNavigate();
+  const [name,setName] = useState(' ')
+  const [email,setEmail] = useState(' ')
+  const [password,setPassword] = useState(' ')
+//Envia os dados para API e volta para pagina de login
+  async function handleEvent(event: FormEvent){
     event.preventDefault();
 
+    await axios.post('http://localhost:3333/register',{
+      name: name,
+      email: email,
+      password: password
+    })
+    .then((response)=>{
+      console.log(response)
+      alert('Usuário criado com sucesso! Volte e faça o login.')
+      navigate('/')
+    })
+    .catch(err=>console.log(err))
+    
+   // /register
   }
   return (
     <>
-    <Header />
+
     <BackButton href={"/"} />
     <div className="w-full h-screen flex flex-col items-center px-6">
       <h1 className="text-4xl mt-11 mb-8 font-extrabold text-sky-900"> Criar Login</h1>
@@ -24,6 +44,7 @@ export function NewUser(){
               Nome:
             </label>
             <input type="text" placeholder="Digite seu nome" name="name" id="name" required
+              onChange={element=>setName(element.target.value)}
               className="text-sm w-full mb-4 pl-3 py-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black"
             />
 
@@ -31,11 +52,13 @@ export function NewUser(){
               E-mail
             </label>
             <input type="email" placeholder="Digite seu e-mail" name="email" id="email" required
+              onChange={element=>setEmail(element.target.value)}
               className="text-sm w-full mb-4 pl-3 py-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black"
             />
 
             <label htmlFor="password" className="text-sm font-bold text-gray-700 mb-2">Senha</label>
             <input type="password" placeholder="Digite sua senha" name="password" id="password" required
+              onChange={element=>setPassword(element.target.value)}
               className="text-sm w-full mb-4 pl-3 py-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black"
             />
             <Button>Criar</Button>
