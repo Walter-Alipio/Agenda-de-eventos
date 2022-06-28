@@ -1,22 +1,24 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import { CreateEventForm } from "../components/forms/CreateEventForm";
 import { Header } from "../components/Header";
 import ModalOk from "../components/ModalOk";
 
+import DataUser from "../auth/dataUser";
+import axios from 'axios';
 
-
-const events = new Array();
 
 export function CreateEvent(){
+  //monitora o estado dos inputs
   const [name,setName] = useState('');
   const [date,setDate] = useState('');
   const [start,setStart] = useState('');
   const [end,setEnd] = useState('');
   const [description,setDescription] = useState('');
 
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
 
+//limpa o formulário
   function clear(){
     setName('')
     setDate('')
@@ -25,15 +27,32 @@ export function CreateEvent(){
     setDescription('')
   }
 
-  let message = ' ';
-  function handleEvent(event: FormEvent){
-    event.preventDefault();
-    events.push({name,date,start,end,description});
-    console.log(events);
-    message = 'Criado com sucesso!';
-    clear();
-    setIsOpen(true)
-  }
+  //Envia os dados para API
+  async function handleEvent(event: FormEvent){
+  event.preventDefault();
+    await axios({
+      method: 'post',
+      url:'http://localhost:3333/events' ,
+      headers: {
+           Authorization: "Bearer " + DataUser.getToken()
+             },   
+      data:{ 
+            name: name,
+            date: date,
+            start: start,
+            end: end,
+            description: description
+           } 
+    })
+      .then((response)=>{
+        console.log(response);
+        clear();
+        setIsOpen(true)
+
+      }).catch((error)=>{
+        console.log(error)
+      })
+    }
 
   return (
     <>
@@ -41,9 +60,8 @@ export function CreateEvent(){
       <ModalOk 
         setIsOpen={setIsOpen}
         isOpen={isOpen}
-        message = {message}
       />
-      <BackButton href={"#"} />
+      <BackButton href={"/home"} />
         <div className="w-full h-screen flex flex-col items-center px-6">
         <h1 className="text-4xl mt-11 mb-8 font-extrabold text-sky-900"> Criar evento</h1>
 
@@ -63,6 +81,7 @@ export function CreateEvent(){
               description={description}
 
               handleEvent={handleEvent}
+              
                   />
         </section>
       </div>
