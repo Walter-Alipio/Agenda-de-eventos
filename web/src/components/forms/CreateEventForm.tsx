@@ -70,7 +70,7 @@ export function CreateEventForm(props: Form){
              className='text-sm mb-4 pl-3 p-2 rounded border shadow focus:outline-none hover:border-blue-light hover:ring-1 hover:ring-blue-dark focus:border-blue-dark focus:ring-1 focus:ring-blue-dark text-black resize-none overflow-x-hidden'
              ></textarea>
 
-              <Button>Criar</Button>
+              <Button>Salvar</Button>
           </form>
   )
 }

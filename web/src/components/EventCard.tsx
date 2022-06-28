@@ -1,8 +1,9 @@
 import { format } from 'date-fns'
 import { useState } from 'react';
-import {Pencil, Trash, XCircle} from 'phosphor-react'
+import {Link, Pencil, Trash, XCircle} from 'phosphor-react'
  
 interface Card{
+  id: string,
   name: string;
   date: Date;
   start: string;
@@ -10,7 +11,7 @@ interface Card{
   description: string;
 }
 
-export function EventCard({name,date,start,end, description}: Card){
+export function EventCard({id,name,date,start,end, description}: Card){
   const dayEvent = format(date, "d");
   const month = format(date,"MMM");
 
@@ -28,8 +29,13 @@ export function EventCard({name,date,start,end, description}: Card){
           {month}
         </span>
         <span className='mr-2 ml-auto flex gap-8 '>
-          <a href="#"><Pencil size={24} alt='Editar' className='hover:animate-pulse hover:text-yellow-400 transition-colors' /></a>
-          <a href="#"><Trash size={24} weight='bold' alt='Excluir' className='hover:animate-pulse hover:text-red-400 transition-colors'/> </a>
+          <a href={`/updateEvent/${id}`}>
+            <Pencil size={24} alt='Editar' 
+                className='hover:animate-pulse hover:text-yellow-400 transition-colors' />
+          </a>
+          <a href ={'#'}><Trash size={24} weight='bold' alt='Excluir' 
+                className='hover:animate-pulse hover:text-red-400 transition-colors'/> 
+          </a>
         </span>
 
       </header>

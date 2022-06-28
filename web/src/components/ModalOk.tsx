@@ -4,9 +4,8 @@ import { Fragment, useState } from 'react'
 interface Props{
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
-  message: string;
 }
-export default function ModalOk({setIsOpen, isOpen, message}: Props) {
+export default function ModalOk({setIsOpen, isOpen}: Props) {
   
 
   function closeModal() {
@@ -49,8 +48,9 @@ export default function ModalOk({setIsOpen, isOpen, message}: Props) {
                     as="h3"
                     className="text-lg text-center font-medium leading-6 text-sky"
                   > 
-                    Criado com sucesso!
+                  Criado com sucesso!
                     </Dialog.Title>
+             
                   <div className="mt-4 flex justify-center">
                     <button
                       type="button"
