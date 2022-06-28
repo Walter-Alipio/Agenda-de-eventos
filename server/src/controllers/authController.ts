@@ -25,12 +25,14 @@ class AuthController {
 
     
     await user.save((err: mongoose.CallbackError)=>{
+      let userSend;
 
         err ? 
-          res.status(500).send({message: `${err.message} - falha ao cadastrar usuário`}) :
+          res.status(500).send({message: `${err.message} - falha ao cadastrar usuário`}) 
+          :
           user.password = undefined;
           res.status(200).send({
-            user,
+            userSend,
             token: generateToken({id: user._id}),
           })
 

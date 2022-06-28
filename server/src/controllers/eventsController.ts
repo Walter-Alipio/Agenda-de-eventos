@@ -11,14 +11,14 @@ class EventController{
   }
 
   static listEventById = async (req: Request, res: Response) => {
-       const id = await req.params.id;
+       const id = req.params.id;
        await events.findById(id,(err: mongoose.CallbackError, event: IEvent )=>{
         err ? res.status(400).send({message: `${err.message} - Id não localizado`}) :
           res.status(200).send(event)
        })
   }
 
-  static newEvent = async (req: Request, res: Response) =>{  
+  static newEvent = async (req: Request, res: Response) =>{ 
       let {name, date, start, end, description} = await req.body;
       date = new Date(date);
       //transformando em tipo Date para armazenar no bd
