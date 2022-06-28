@@ -13,7 +13,7 @@ export function Router(){
       <Route path="/newUser" element={<NewUser />}/>
       <Route path="/home" element={<Events />}/>
       <Route path="/newEvent" element={<CreateEvent />}/>
-      <Route path="/newEvent/:ID" element={<UpdateEvent />}/>
+      <Route path="/updateEvent/:ID" element={<UpdateEvent />}/>
     </Routes>
   );
 }
