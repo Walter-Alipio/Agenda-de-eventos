@@ -19,15 +19,16 @@ export function Events(){
   const [db,SetDb] = useState<dataType[]>([])
 
   async function render(){
-  await axios.get('http://localhost:3333/events', {
-    headers: {
-      Authorization: "Bearer " + DataUser.getToken()
-    }
-  })
-  .then(response => SetDb(response.data))
-  .catch((error)=>{
-    console.log(error)
-  })
+    await axios.get('http://localhost:3333/events', {
+      headers: {
+        Authorization: "Bearer " + DataUser.getToken()
+      }
+    })
+    .then(response => SetDb(response.data))
+    .catch((error)=>{
+      console.log(error)
+    })
+   
   }
 
   useEffect(()=>{
@@ -50,7 +51,7 @@ export function Events(){
                       key={element._id}
                       id={element._id}
                       name={element.name}
-                      date={new Date(element.date)}
+                      date={ element.date}
                       start={element.start}
                       end={element.end}
                       description={element.description}

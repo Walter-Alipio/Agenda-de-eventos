@@ -5,15 +5,19 @@ import {Link, Pencil, Trash, XCircle} from 'phosphor-react'
 interface Card{
   id: string,
   name: string;
-  date: Date;
+  date: string;
   start: string;
   end: string;
   description: string;
 }
 
 export function EventCard({id,name,date,start,end, description}: Card){
-  const dayEvent = format(date, "d");
-  const month = format(date,"MMM");
+
+  let newDate = new Date(date)
+  newDate.setDate(newDate.getDate()+1)
+
+  const dayEvent = format(newDate, "d");
+  const month = format(newDate,"MMM");
 
   const [activeButton, setActiveButton] = useState(false);
 
