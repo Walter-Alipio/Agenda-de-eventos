@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useEffect, useState } from "react";
 import DataUser from "../auth/dataUser";
 import { CalendarCheck } from "phosphor-react";
+import ModalDelete from "../components/modal/ModalDelete";
 
 interface dataType{
   _id: string,
@@ -17,6 +18,12 @@ interface dataType{
 export function Events(){
 
   const [db,SetDb] = useState<dataType[]>([])
+//controle da modal
+  let [isOpen, setIsOpen] = useState(false);
+  let [exclude, setExclude] = useState(false);
+  let [id,setId] = useState(' ')
+
+  if(exclude) window.location.reload();
 
   async function render(){
     await axios.get('http://localhost:3333/events', {
@@ -38,6 +45,13 @@ export function Events(){
   return (
     <div>
       <Header />
+      <ModalDelete 
+        setIsOpen={setIsOpen}
+        setExclude={setExclude}
+        isOpen={isOpen}
+        message={ "O evento será completamente excluído!" }  
+        id={id}
+      />
       <section className="mt-12 w-full"> 
       <div className="w-full flex justify-center">
         <a href="/newEvent" className="flex items-center gap-2 font-extrabold"><CalendarCheck />Criar evento</a>
@@ -55,6 +69,8 @@ export function Events(){
                       start={element.start}
                       end={element.end}
                       description={element.description}
+                      setIsOpen={setIsOpen}
+                      setId={setId}
                     />  
                   </li>
                 )
