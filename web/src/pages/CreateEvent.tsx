@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import { CreateEventForm } from "../components/forms/CreateEventForm";
 import { Header } from "../components/Header";
-import ModalOk from "../components/ModalOk";
+import ModalOk from "../components/modal/ModalOk";
 
 import DataUser from "../auth/dataUser";
 import axios from 'axios';
@@ -60,6 +60,9 @@ export function CreateEvent(){
       <ModalOk 
         setIsOpen={setIsOpen}
         isOpen={isOpen}
+        url={'/newEvent'} 
+        message={ "Criado com sucesso!" }  
+        buttonText={'Voltar'} 
       />
       <BackButton href={"/home"} />
         <div className="w-full h-screen flex flex-col items-center px-6">
