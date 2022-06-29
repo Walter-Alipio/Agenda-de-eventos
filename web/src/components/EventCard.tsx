@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { useState } from 'react';
-import {Link, Pencil, Trash, XCircle} from 'phosphor-react'
+import { Pencil, Trash} from 'phosphor-react'
  
 interface Card{
   id: string,
@@ -9,9 +9,13 @@ interface Card{
   start: string;
   end: string;
   description: string;
+
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setId:React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function EventCard({id,name,date,start,end, description}: Card){
+
+export function EventCard({id,name,date,start,end, description, setIsOpen,setId}: Card){
 
   let newDate = new Date(date)
   newDate.setDate(newDate.getDate()+1)
@@ -21,10 +25,14 @@ export function EventCard({id,name,date,start,end, description}: Card){
 
   const [activeButton, setActiveButton] = useState(false);
 
+  function openModal(){
+    setIsOpen(true)
+    setId(id)
+  }
+
   return (
     <section className="w-72 rounded-md m-3 lg:w-96 ">
       <header className="bg-sky-900 overflow-visible flex items-center rounded-t-md h-10 text-white">
-
         <span 
           className='text-4xl p-2 rounded-lg bg-orange-500 absolute'>
           {dayEvent}
@@ -37,9 +45,10 @@ export function EventCard({id,name,date,start,end, description}: Card){
             <Pencil size={24} alt='Editar' 
                 className='hover:animate-pulse hover:text-yellow-400 transition-colors' />
           </a>
-          <a href ={'#'}><Trash size={24} weight='bold' alt='Excluir' 
+          <button type='button'onClick={openModal}>
+            <Trash size={24} weight='bold' alt='Excluir' 
                 className='hover:animate-pulse hover:text-red-400 transition-colors'/> 
-          </a>
+          </button>
         </span>
 
       </header>
