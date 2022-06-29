@@ -11,10 +11,11 @@ class EventController{
   }
 
   static listEventById = async (req: Request, res: Response) => {
-       const id = req.params.id;
-       await events.findById(id,(err: mongoose.CallbackError, event: IEvent )=>{
-        err ? res.status(400).send({message: `${err.message} - Id não localizado`}) :
-          res.status(200).send(event)
+       const _id = await req.params.id;
+        events.findById(_id,(err: mongoose.CallbackError, event: IEvent )=>{
+        err ? res.status(400).send({message: `${err.message} - Id não localizado`}) 
+        :
+        res.status(200).send(event)
        })
   }
 
@@ -24,7 +25,7 @@ class EventController{
       //transformando em tipo Date para armazenar no bd
       let event = new events({name, date, start, end, description});
       
-      await event.save((err: mongoose.CallbackError)=>{
+       event.save((err: mongoose.CallbackError)=>{
 
         err ? res.status(500).send({message: `${err.message} - falha ao cadastrar evento`}) :
           res.status(200).send(event.toJSON())
@@ -34,18 +35,19 @@ class EventController{
 
    static updateEvent = async (req: Request, res: Response) => {
       const id = await req.params.id;
-
-     await events.findByIdAndUpdate(id,{$set: req.body}, (err: mongoose.CallbackError)=>{
+       let { date } = await req.body;
+       req.body.date = new Date(date);
+      events.findByIdAndUpdate(id,{$set: req.body}, (err: mongoose.CallbackError)=>{
          !err ? 
             res.status(200).send({message: 'Atualizado com sucesso!'}) :
-            res.status(500).send({messega: `${err.message} - Id não encontrado`})
+            res.status(500).send({message: `${err.message} - Id não encontrado`})
       })
    }
 
    static deleteEvent = async (req: Request, res: Response) => {
       const id = await req.params.id;
 
-      await events.findByIdAndDelete(id,(err: mongoose.CallbackError)=>{
+       events.findByIdAndDelete(id,(err: mongoose.CallbackError)=>{
         !err ? 
           res.status(200).send({message: 'Evento excluído'}):
           res.status(500).send({message: `${err.message} - Id não encontrado`});
