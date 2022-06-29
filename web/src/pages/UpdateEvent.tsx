@@ -2,8 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import { CreateEventForm } from "../components/forms/CreateEventForm";
 import { Header } from "../components/Header";
-import ModalOk from "../components/ModalOk";
-import { format } from "date-fns";
+import ModalOk from "../components/modal/ModalOk";
 
 import { useNavigate, useParams} from 'react-router-dom';
 import DataUser from "../auth/dataUser";
@@ -22,7 +21,7 @@ export function UpdateEvent(){
   const [isOpen, setIsOpen] = useState(false)
 
   let { ID } = useParams();
-
+//puxa os dados do evento que será editado
   useEffect(()=>{
    if(ID !== undefined) {
 
@@ -36,7 +35,7 @@ export function UpdateEvent(){
      .then((res)=> {
       console.log(res.status)
       const data = res.data;
-      
+
       const [dateFormat] = data.date.toString().match(/(\d{4}-\d{2}-\d{2})/)
       setName(data.name);
       setDate(dateFormat);
@@ -44,9 +43,11 @@ export function UpdateEvent(){
       setEnd(data.end);
       setDescription(data.description);   
     })
-    .catch(err=>console.log(err))
+    .catch(err=>{
+      console.log(err)
+    })
    }},[])
-  
+//envia os dados para API  
   async function handleEvent(event: FormEvent){
   event.preventDefault();
 
@@ -68,9 +69,6 @@ export function UpdateEvent(){
       console.log(res.status);
       setIsOpen(true);
       console.log(date)
-      // if(!isOpen){
-      //   navigate('/home');
-      // }
     })
     .catch((err)=>console.log(err))
   }
@@ -81,6 +79,9 @@ export function UpdateEvent(){
       <ModalOk 
         setIsOpen={setIsOpen}
         isOpen={isOpen}
+          url={'/home'} 
+          message={ "Alterado com sucesso!" }  
+          buttonText={'Voltar'} 
       />
       <BackButton href={"/home"} />
         <div className="w-full h-screen flex flex-col items-center px-6">

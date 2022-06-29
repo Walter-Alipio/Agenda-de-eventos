@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckCircle, WarningCircle } from 'phosphor-react';
-import { Fragment, useState } from 'react'
+import { CheckCircle } from 'phosphor-react';
+import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 interface Props{

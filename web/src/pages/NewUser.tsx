@@ -2,15 +2,19 @@ import { Button } from "../components/Button";
 import { FormEvent, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import ModalOk from "../components/modal/ModalOk";
 
 
 export function NewUser(){
 
-  const navigate = useNavigate();
-  const [name,setName] = useState(' ')
-  const [email,setEmail] = useState(' ')
-  const [password,setPassword] = useState(' ')
+ 
+  const [name,setName] = useState(' ');
+  const [email,setEmail] = useState(' ');
+  const [password,setPassword] = useState(' ');
+
+   const [isOpen, setIsOpen] = useState(false)
+
+
 //Envia os dados para API e volta para pagina de login
   async function handleEvent(event: FormEvent){
     event.preventDefault();
@@ -22,8 +26,7 @@ export function NewUser(){
     })
     .then((response)=>{
       console.log(response)
-      alert('Usuário criado com sucesso! Volte e faça o login.')
-      navigate('/')
+     setIsOpen(true)
     })
     .catch(err=>console.log(err))
     
@@ -31,7 +34,13 @@ export function NewUser(){
   }
   return (
     <>
-
+    <ModalOk 
+      setIsOpen={setIsOpen}
+      isOpen={isOpen}
+      url={'/'} 
+      message={ "Usuário criado com sucesso!" }  
+      buttonText={'Voltar ao Login'} 
+    />
     <BackButton href={"/"} />
     <div className="w-full h-screen flex flex-col items-center px-6">
       <h1 className="text-4xl mt-11 mb-8 font-extrabold text-sky-900"> Criar Login</h1>
