@@ -16,15 +16,15 @@ interface dataType{
 }
 
 export function Events(){
-
-  const [db,SetDb] = useState<dataType[]>([])
+ 
 //controle da modal
   let [isOpen, setIsOpen] = useState(false);
   let [exclude, setExclude] = useState(false);
   let [id,setId] = useState(' ')
-
+//recarrega a tela após excluir um elementos
   if(exclude) window.location.reload();
 
+  const [db,SetDb] = useState<dataType[]>([])
   async function render(){
     await axios.get('http://localhost:3333/events', {
       headers: {
@@ -37,11 +37,22 @@ export function Events(){
     })
    
   }
-
   useEffect(()=>{
     render();
   },[])
+//ordena a exibição por data do evento
+  function compare( a: dataType, b: dataType ) {
+  if ( a.date < b.date ){
+    return -1;
+  }
+  if ( a.date > b.date ){
+    return 1;
+  }
+  return 0;
+}
+db.sort( compare );
 
+  console.log(db)
   return (
     <div>
       <Header />
@@ -54,11 +65,13 @@ export function Events(){
       />
       <section className="mt-12 w-full"> 
       <div className="w-full flex justify-center">
-        <a href="/newEvent" className="flex items-center gap-2 font-extrabold"><CalendarCheck />Criar evento</a>
+        <a href="/newEvent" className="flex items-center gap-2 font-extrabold bg-sky-100 rounded-2xl py-2 px-4 shadow-lg hover:bg-sky-200"
+        ><CalendarCheck />Criar evento</a>
       </div>   
           <ul className="flex flex-wrap justify-center gap-7 lg:justify-around max-w-[1100px] mx-auto">
             {
               db.map(element => {
+        
                 return(
                   <li className="mt-3">
                     <EventCard 
