@@ -55,7 +55,8 @@ export function EventCard({id,name,date,start,end, description, setIsOpen,setId}
 
       <body className='bg-sky-50 rounded-b-md pt-3 flex flex-col group overflow-hidden'>
         <button className='text-center text-lg font-bold  w-full '
-          onClick = {() => activeButton ? setActiveButton(false) : setActiveButton(true)}  
+          onClick = {() => activeButton ? setActiveButton(false) : setActiveButton(true)} 
+           title='Clique para expandir'
         >
           {name}
         </button>

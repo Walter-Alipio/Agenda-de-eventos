@@ -65,7 +65,10 @@ db.sort( compare );
       />
       <section className="mt-12 w-full"> 
       <div className="w-full flex justify-center">
-        <a href="/newEvent" className="flex items-center gap-2 font-extrabold bg-sky-100 rounded-2xl py-2 px-4 shadow-lg hover:bg-sky-200"
+        <a 
+          href="/newEvent" 
+          className="flex items-center gap-2 font-extrabold bg-sky-100 rounded-2xl py-2 px-4 shadow-lg hover:bg-sky-200"
+          title="Criar novo evento"
         ><CalendarCheck />Criar evento</a>
       </div>   
           <ul className="flex flex-wrap justify-center gap-7 lg:justify-around max-w-[1100px] mx-auto">
