@@ -1,4 +1,13 @@
+import { useNavigate } from 'react-router-dom'
+
+
 export function Header(){
+  const navigate = useNavigate();
+  function handleClick(event:  React.MouseEvent<HTMLButtonElement, MouseEvent>){
+    event.preventDefault();
+    sessionStorage.clear();
+    navigate('/')
+}
   return(
     <header className="w-full h-16 bg-sky-800 flex items-center drop-shadow-xl justify-between px-3">
        <div className="w-10 flex items-center justify-center ml-7 ">
@@ -49,7 +58,7 @@ export function Header(){
             </svg>
         </a>
        </div>
-       <a href="/"><span className="font-extrabold text-sky-100 text-base mr-2">Logout</span></a>
+       <button onClick={(event)=>handleClick(event)}><span className="font-extrabold text-sky-100 text-base mr-2">Logout</span></button>
     </header>
   )
 }
