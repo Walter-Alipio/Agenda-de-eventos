@@ -37,6 +37,7 @@ class EventController{
       const id = await req.params.id;
        let { date } = await req.body;
        req.body.date = new Date(date);
+       
       events.findByIdAndUpdate(id,{$set: req.body}, (err: mongoose.CallbackError)=>{
          !err ? 
             res.status(200).send({message: 'Atualizado com sucesso!'}) :
