@@ -1,12 +1,21 @@
 # desafio-tokenlab
 
-Este projeto é parte do processo seletivo para vaga de estágio da TokenLab.
+Este projeto foi inicialmente parte do processo seletivo para vaga de estágio da TokenLab, mas continua sendo usado para estudo.
 
 #
 
 ### Desafio
 
-Construir um app para agendar eventos. Front-end, back-end e banco de dados. Deve ser possível criar usuário e fazer login, criar, visualizar, alterar ou apagar um evento.
+## Proposta
+
+Construir um app para agendar eventos onde seja possível criar usuário e logar. Também deve ser possível criar, editar e deletar um evento. Podendo usar qualquer linguagem e banco de dados.
+
+## Estado atual do projeto
+
+Tela inicial permite o login ou criação de usuário.
+Pagina Home trás os eventos cadastrados com botão para criar novo evento.
+Cada evento apresenta data, opção para editar ou deletar, e o nome do evento. É possível expandir o evento clicando no nome para visualizar o horário de início, termino e descrição do evento.
+O cabeçalho possuí logo com link para home e Logout para sair do sistema.
 
 #
 
