@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router-dom';
 interface Props{
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
-  url: string;
   message:  string;
   buttonText: string;
 }
-export default function ModalOk({setIsOpen, isOpen, url, message, buttonText}: Props) {
+export default function ModalOk({setIsOpen, isOpen, message, buttonText}: Props) {
   const navigate = useNavigate();
 
   function navigateTo(){
-    navigate(url)
+    navigate(-1)
   }
 
   function closeModal() {

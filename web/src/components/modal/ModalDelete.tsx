@@ -1,7 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import {  WarningCircle } from 'phosphor-react';
-import { Fragment, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Fragment } from 'react'
 import axios from 'axios';
 import DataUser from '../../auth/dataUser';
 
@@ -13,11 +12,7 @@ interface Props{
   id: string;
 }
 export default function ModalDelete({setIsOpen, setExclude, isOpen, message, id}: Props) {
-  const navigate = useNavigate();
-
-  function navigateTo(){
-    navigate('/home')
-  }
+  
   async function exclude(){
 
     axios({
