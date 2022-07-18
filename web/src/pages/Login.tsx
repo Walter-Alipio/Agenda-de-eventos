@@ -6,7 +6,11 @@ import axios from 'axios'
 import DataUser from "../auth/dataUser";
 
 
-export function Login(){
+interface Props {
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function Login(  { setIsLogin }: Props ){
   const navigate = useNavigate();
   const [email, setEmail] = useState(' ');
   const [password,setPassword ] = useState(' ');
@@ -14,7 +18,6 @@ export function Login(){
 
   async function  Login(event: FormEvent){
   event.preventDefault();
-
 
    await axios.post('http://localhost:3333/authenticate', {
        email: email,
@@ -24,6 +27,7 @@ export function Login(){
       const data = response
       let user = userInfo(data)
       DataUser.setStorage(user);
+      setIsLogin(true)
       navigate('/home')
 
     })
@@ -36,7 +40,7 @@ export function Login(){
 
   
   return (
-    <div className="w-full h-screen flex flex-col items-center px-3 transition-transform">
+    <div className="w-full h-[calc(100vh-4rem)] flex flex-col items-center px-3 transition-transform">
        <div className="flex justify-center w-20 mt-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"

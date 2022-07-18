@@ -1,18 +1,24 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Props } from './Home';
 
 
-export function Header(){
+interface IProps {
+  setIsLogin:  React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function Header( { setIsLogin }:  IProps){
   const navigate = useNavigate();
   function handleClick(event:  React.MouseEvent<HTMLButtonElement, MouseEvent>){
     event.preventDefault();
     sessionStorage.clear();
+    setIsLogin(false);
     navigate('/')
 }
   return(
     <header className="w-full h-16 bg-sky-800 flex items-center drop-shadow-xl justify-between px-3">
-       <div className="w-10 flex items-center justify-center ml-7 ">
-        <a href="/home">     
-            <svg
+      <div className="w-10 flex items-center justify-center ml-7 ">
+      <Link to={"/home"} title="Home">     
+        <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0"
               y="0"
@@ -55,10 +61,12 @@ export function Header(){
               <g>
                 <circle cx="336" cy="318" r="32" fill="#FF4F19"></circle>
               </g>
-            </svg>
-        </a>
-       </div>
-       <button onClick={(event)=>handleClick(event)}><span className="font-extrabold text-sky-100 text-base mr-2">Logout</span></button>
+        </svg>
+      </Link>
+      </div>
+      <button onClick={(event)=>handleClick(event)} title="Sair">
+        <span className="font-extrabold text-sky-100 text-base mr-2">Logout</span>
+      </button>
     </header>
   )
 }

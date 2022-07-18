@@ -55,12 +55,11 @@ export function NewUser(){
     <ModalOk 
       setIsOpen={setIsOpen}
       isOpen={isOpen}
-      url={'/'} 
       message={ "Usuário criado com sucesso!" }  
       buttonText={'Voltar ao Login'} 
     />
-    <BackButton href={"/"} />
-    <div className="w-full h-screen flex flex-col items-center px-6">
+    <BackButton />
+    <div className="w-full h-[calc(100vh-4rem)] flex flex-col items-center px-6">
       <h1 className="text-4xl mt-11 mb-8 font-extrabold text-sky-900"> Criar Login</h1>
       <section className="flex flex-col justify-center p-6 gap-2 w-full mx-8 max-w-[440px]  bg-white rounded-md shadow-md" >
         <form 

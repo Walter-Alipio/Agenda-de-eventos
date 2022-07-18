@@ -1,16 +1,14 @@
 import { FormEvent, useEffect, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import { CreateEventForm } from "../components/forms/CreateEventForm";
-import { Header } from "../components/Header";
 import ModalOk from "../components/modal/ModalOk";
 
-import { useNavigate, useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import DataUser from "../auth/dataUser";
 import axios from 'axios';
 
 
 export function UpdateEvent(){
-  const navigate = useNavigate();
 
   const [name,setName] = useState('');
   const [date,setDate] = useState('');
@@ -75,16 +73,14 @@ export function UpdateEvent(){
 
   return (
     <>
-      <Header />
       <ModalOk 
         setIsOpen={setIsOpen}
         isOpen={isOpen}
-          url={'/home'} 
           message={ "Alterado com sucesso!" }  
           buttonText={'Voltar'} 
       />
-      <BackButton href={"/home"} />
-        <div className="w-full h-screen flex flex-col items-center px-6">
+      <BackButton />
+        <div className="w-full h-[calc(100vh-4rem)] flex flex-col items-center px-6">
         <h1 className="text-4xl mt-11 mb-8 font-extrabold text-sky-900"> Editar evento</h1>
 
         <section className="flex flex-col justify-center p-6 gap-2 w-full mx-4 max-w-[440px] bg-white rounded-md shadow-md " >
