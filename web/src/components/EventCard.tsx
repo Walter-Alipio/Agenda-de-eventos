@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { useState } from 'react';
 import { Pencil, Trash} from 'phosphor-react'
+import { Link } from 'react-router-dom';
  
 interface Card{
   id: string,
@@ -41,10 +42,10 @@ export function EventCard({id,name,date,start,end, description, setIsOpen,setId}
           {month}
         </span>
         <span className='mr-2 ml-auto flex gap-8 '>
-          <a href={`/updateEvent/${id}`}>
+          <Link to={`updateEvent/${id}`}>
             <Pencil size={24} alt='Editar' 
                 className='hover:animate-pulse hover:text-yellow-400 transition-colors' />
-          </a>
+          </Link>
           <button type='button'onClick={openModal}>
             <Trash size={24} weight='bold' alt='Excluir' 
                 className='hover:animate-pulse hover:text-red-400 transition-colors'/> 
@@ -54,7 +55,7 @@ export function EventCard({id,name,date,start,end, description, setIsOpen,setId}
       </header>
 
       <body className='bg-sky-50 rounded-b-md pt-3 flex flex-col group overflow-hidden'>
-        <button className='text-center text-lg font-bold  w-full '
+        <button className='text-center text-lg font-bold  w-full hover:text-sky-700 hover:bg-sky-100'
           onClick = {() => activeButton ? setActiveButton(false) : setActiveButton(true)} 
            title='Clique para expandir'
         >
