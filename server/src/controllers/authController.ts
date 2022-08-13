@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import authConfig from '../config/auth.json'
+import authConfig from '../config/auth.json';
 
 
 const generateToken = (params: Request["params"] = {}) => {

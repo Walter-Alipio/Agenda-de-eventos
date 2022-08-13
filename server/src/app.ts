@@ -14,14 +14,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-routes(app)
+routes(app);
 
 /*
     "name":"TESTE DB 3",
     "date": "2022-06-22",
     "start":"20:01",
     "end":"20:10",
-    "description":"20hrs e ainda não tenho a API funcionando"
+    "description":"API funcionando"
 */
 
-export default app
+export default app;

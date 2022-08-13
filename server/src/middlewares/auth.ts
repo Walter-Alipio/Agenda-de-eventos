@@ -21,7 +21,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
     if(err) return res.status(401).send({err: 'Token inválido'});
 
-   (<any>req).userId= (<any>decoded).id;
+   (<any>req).userId = (<any>decoded).id;
     return next();
   })
 

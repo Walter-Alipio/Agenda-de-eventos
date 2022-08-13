@@ -20,10 +20,19 @@ class EventController{
   }
 
   static newEvent = async (req: Request, res: Response) =>{ 
-      let {name, date, start, end, description} = await req.body;
-      date = new Date(date);
+      let {name, date, start, end, description } = await req.body;
+      const authHeader = req.headers.authorization?.split(' ');
+      let token;
+      //Each JWT contains a payload. The payload is a base64 encoded JSON object that sits between the two periods in the token. We can decode this payload by using Buffer.from, then,  to a JSON string and use JSON.parse() to parse the string into an object.
+      if(authHeader){
+          token = JSON.parse(Buffer.from(authHeader[1].split('.')[1], 'base64').toString());
+         }
+      const owner = token.id;
+      
       //transformando em tipo Date para armazenar no bd
-      let event = new events({name, date, start, end, description});
+      date = new Date(date);
+
+      let event = new events({name, date, start, end, description , owner});
       
        event.save((err: mongoose.CallbackError)=>{
 
