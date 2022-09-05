@@ -1,8 +1,9 @@
 import { Request, Response,NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import authConfig from '../config/auth.json';
 
-
+const apikey = { 
+  secret: process.env.API_KEY 
+}
 
 export default (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -17,7 +18,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if(!/^Bearer$/i.test(scheme)) return res.status(401).send({error: 'Formato de token inválido'})
 
-  jwt.verify(token, authConfig.secret, (err, decoded )=> {
+  jwt.verify(token, apikey.secret!, (err, decoded )=> {
 
     if(err) return res.status(401).send({err: 'Token inválido'});
 

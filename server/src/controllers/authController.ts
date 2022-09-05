@@ -4,11 +4,12 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import authConfig from '../config/auth.json';
+
+const secret = process.env.API_KEY;
 
 
 const generateToken = (params: Request["params"] = {}) => {
-  return  jwt.sign(params, authConfig.secret, {
+  return  jwt.sign(params, secret!, {
           expiresIn: 86400,
         })
 }
