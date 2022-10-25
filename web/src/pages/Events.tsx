@@ -6,6 +6,7 @@ import DataUser from '../auth/dataUser';
 import { CalendarCheck } from 'phosphor-react';
 import ModalDelete from '../components/modal/ModalDelete';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 interface dataType {
 	_id: string;
@@ -55,7 +56,7 @@ export function Events() {
 	db.sort(compare);
 
 	return (
-		<div className=''>
+		<div className='min-h-screen overflow-auto'>
 			<ModalDelete
 				setIsOpen={setIsOpen}
 				setExclude={setExclude}
@@ -74,7 +75,7 @@ export function Events() {
 						Criar evento
 					</Link>
 				</div>
-				<ul className='flex flex-wrap justify-center gap-7 md:grid md:grid-cols-2 md:justify-around mx-auto mb-3'>
+				<ul className='flex flex-wrap justify-center gap-7 md:grid md:grid-cols-2 md:justify-around mx-auto mb-6'>
 					{db.map(element => {
 						return (
 							<li className='mt-3 mx-auto'>
@@ -94,6 +95,7 @@ export function Events() {
 					})}
 				</ul>
 			</section>
+			<Footer />
 		</div>
 	);
 }

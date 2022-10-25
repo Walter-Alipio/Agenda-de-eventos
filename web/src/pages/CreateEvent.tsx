@@ -5,6 +5,7 @@ import ModalOk from '../components/modal/ModalOk';
 
 import DataUser from '../auth/dataUser';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 export function CreateEvent() {
 	//monitora o estado dos inputs
@@ -61,7 +62,7 @@ export function CreateEvent() {
 				buttonText={'Voltar'}
 			/>
 			<BackButton />
-			<div className='w-full h-[calc(100vh+4rem)] flex flex-col items-center px-6'>
+			<div className='w-full min-h-[calc(100vh+4rem)] flex flex-col items-center px-6'>
 				<h1 className='text-4xl mt-11 mb-8 font-extrabold text-sky-900'>
 					{' '}
 					Criar evento
@@ -82,6 +83,7 @@ export function CreateEvent() {
 						handleEvent={handleEvent}
 					/>
 				</section>
+				<Footer />
 			</div>
 		</>
 	);

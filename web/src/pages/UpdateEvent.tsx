@@ -6,6 +6,7 @@ import ModalOk from '../components/modal/ModalOk';
 import { useParams } from 'react-router-dom';
 import DataUser from '../auth/dataUser';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 export function UpdateEvent() {
 	const [name, setName] = useState('');
@@ -80,7 +81,7 @@ export function UpdateEvent() {
 				buttonText={'Voltar'}
 			/>
 			<BackButton />
-			<div className='w-full h-[calc(100vh+4rem)] flex flex-col items-center px-6'>
+			<div className='w-full min-h-[calc(100vh+4rem)] flex flex-col items-center px-6'>
 				<h1 className='text-4xl mt-11 mb-8 font-extrabold text-sky-900'>
 					{' '}
 					Editar evento
@@ -101,6 +102,7 @@ export function UpdateEvent() {
 						handleEvent={handleEvent}
 					/>
 				</section>
+				<Footer />
 			</div>
 		</>
 	);
