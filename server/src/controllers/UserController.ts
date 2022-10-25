@@ -1,31 +1,26 @@
 import users from '../models/Users'
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { Auth } from '../middlewares/auth';
 
+class UserController {
 
-const secret = process.env.API_KEY;
-
-
-const generateToken = (params: Request["params"] = {}) => {
-  return  jwt.sign(params, secret!, {
-          expiresIn: 86400,
-        })
-}
-
-class AuthController {
+  private static findOne(email:string){
+    return users.findOne({email});
+  }
 
   static newUser = async  (req: Request, res: Response) =>{
 
     const {email} = await req.body;
-    if(await users.findOne({email}))
+    if(await this.findOne(email))
      return res.status(400).send({error: 'E-mail já cadastrado'})
 
     const user = await new users(req.body)
 
-    
+    const authenticate = new Auth()
     await user.save((err: mongoose.CallbackError)=>{
+
       let userSend;
 
         err ? 
@@ -34,11 +29,12 @@ class AuthController {
           user.password = undefined;
           res.status(200).send({
             userSend,
-            token: generateToken({id: user._id}),
+            token: authenticate.generateToken({id: user._id}),
           })
-
-      })
+    })        
   }
+
+
 
   static authenticateUser = async (req: Request, res: Response) =>{
 
@@ -58,11 +54,13 @@ class AuthController {
           id: user._id,
           name: user.name,
           email: user.email
-        }
+        }  
+
+      const authenticate = new Auth()
 
       return res.send({
         userSend, 
-        token: generateToken({id: user._id}),
+        token: authenticate.generateToken({id: user._id.toString()}),
       })  
     }catch(err){
       return res.status(400).send({err})
@@ -71,4 +69,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+export default UserController;
