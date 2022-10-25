@@ -1,6 +1,6 @@
-# desafio-tokenlab
+# Calendário de eventos
 
-Este projeto foi inicialmente parte do processo seletivo para vaga de estágio da TokenLab, mas continua sendo usado para estudo.
+Este projeto foi inicialmente parte do processo seletivo para vaga de estágio, mas continua sendo usado para estudo.
 
 #
 
