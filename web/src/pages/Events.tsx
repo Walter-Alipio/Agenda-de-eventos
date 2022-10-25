@@ -74,10 +74,10 @@ export function Events() {
 						Criar evento
 					</Link>
 				</div>
-				<ul className='flex flex-wrap justify-center gap-7 md:justify-around max-w-[1100px] mx-auto mb-3'>
+				<ul className='flex flex-wrap justify-center gap-7 md:grid md:grid-cols-2 md:justify-around mx-auto mb-3'>
 					{db.map(element => {
 						return (
-							<li className='mt-3 '>
+							<li className='mt-3 mx-auto'>
 								<EventCard
 									key={element._id}
 									id={element._id}
