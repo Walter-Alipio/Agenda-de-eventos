@@ -1,10 +1,12 @@
 import express from 'express';
 import EventController from '../controllers/eventsController';
-import authMiddlewares from '../middlewares/auth'
+import { Auth } from '../middlewares/auth'
 
 const eventRouter = express.Router();
 
-eventRouter.use(authMiddlewares);//verifica se o usuário possuí um token autenticado
+const auth = new Auth();
+
+eventRouter.use((req, res, next) => auth.authCheck(req,res, next));//verifica se o usuário possuí um token autenticado
 
 eventRouter
   .get('/events',EventController.listAll)
